@@ -1,7 +1,10 @@
 import tensorflow as tf
+import numpy as np
 from tensorflow.keras.layers import Layer, Conv2D, LeakyReLU, PReLU, UpSampling2D, MaxPooling2D, Activation
 from tensorflow.keras.models import Model
+from math import log, ceil, floor
 
+tf.config.run_functions_eagerly(True)
 
 class Conv(Layer):
     def __init__(self, n_filters, kernel_size=3, non_linearity='relu', **kwargs):
@@ -120,11 +123,13 @@ class ExactReconUnet(Model):
             activation=None,
         )
 
+    
     def call(self, inputs):
         scales = []
         noisy_image = inputs[0]
         noise_std = inputs[1]
         outputs = noisy_image
+        outputs, crop_w, crop_h, w, h = pad_power_of_two(outputs)
         for conv in self.down_convs:
             outputs = conv(outputs)
             scales.append(outputs)
@@ -136,5 +141,19 @@ class ExactReconUnet(Model):
             outputs = conv(outputs)
         outputs = self.final_conv(outputs)
         noise_std = tf.reshape(noise_std, shape=[tf.shape(noise_std)[0], 1, 1, 1])
+        outputs = tf.image.crop_to_bounding_box(outputs, int(floor(crop_w)), int(floor(crop_h)), w, h)
         outputs = noisy_image - noise_std * outputs
         return outputs
+    
+
+def pad_power_of_two(x):
+    
+    y = tf.convert_to_tensor(x).numpy()
+    w = y.shape[1]
+    h = y.shape[2]
+    
+    pad_value_w = 2**ceil(log(w, 2)) - w
+    pad_value_h = 2**ceil(log(h, 2)) - h
+    padding = tf.constant([(0,0), (int(floor(pad_value_w/2)), int(ceil(pad_value_w/2))), (int(floor(pad_value_h/2)), int(ceil(pad_value_h/2))), (0, 0)])
+        
+    return tf.pad(x, padding, 'CONSTANT'), pad_value_w, pad_value_h, w, h
