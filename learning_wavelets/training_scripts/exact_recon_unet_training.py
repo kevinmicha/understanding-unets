@@ -82,7 +82,7 @@ def train_unet(noise_std_train, noise_std_val, n_samples, source, cuda_visible_d
     
     plt.plot(history.history['loss'], label='Loss (training data)')
     plt.plot(history.history['val_loss'], label='Loss (validation data)')
-    plt.title('Loss of the Learnlets on the Vertical Set')
+    plt.title('Loss of the U-net with exact recon')
     plt.ylabel('Loss value')
     plt.yscale('log')
     plt.xlabel('No. epoch')
