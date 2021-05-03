@@ -110,7 +110,6 @@ def evaluate_unet(
         return_noise_level=True,
     )
 
-    val_set = val_set.take(n_volumes)
 
     model = ExactReconUnet(**run_params)
     model.built = True
