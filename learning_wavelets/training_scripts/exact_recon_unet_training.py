@@ -15,9 +15,7 @@ from learning_wavelets.models.exact_recon_unet import ExactReconUnet
 tf.random.set_seed(1)
 
 
-def train_unet(noise_std_train, noise_std_val, n_samples, source, cuda_visible_devices, base_n_filters):
-
-    os.environ["CUDA_VISIBLE_DEVICES"] = ','.join(cuda_visible_devices)
+def train_unet(noise_std_train, noise_std_val, n_samples, source, base_n_filters):
     # data preparation
     batch_size = 8
     if source == 'bsd500':
