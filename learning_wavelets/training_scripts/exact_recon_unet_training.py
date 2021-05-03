@@ -41,7 +41,7 @@ def train_unet(noise_std_train, noise_std_val, n_samples, source, base_n_filters
     n_epochs = 200
     run_id = f'ExactReconUnet_{base_n_filters}_dynamic_st_{source}_{noise_std_train[0]}_{noise_std_train[1]}_{n_samples}_{int(time.time())}'
     chkpt_path = f'{CHECKPOINTS_DIR}checkpoints/{run_id}' + '-{epoch:02d}.hdf5'
-    print(run_id)
+    run_id = f'ExactReconUnet_{base_n_filters}_{source}_{noise_std_train[0]}_{noise_std_train[1]}_{n_samples}_{int(time.time())}'
 
     # callbacks preparation
     def l_rate_schedule(epoch):
