@@ -81,7 +81,6 @@ def evaluate_unet(
         n_epochs=500,
         n_output_channels = 1,
         kernel_size = 3,
-        cuda_visible_devices = '0123',
         layers_n_channels = [64, 128, 256, 512, 1024],
         layers_n_non_lins = 2,
         non_linearity = 'relu',
