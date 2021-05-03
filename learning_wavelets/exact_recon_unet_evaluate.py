@@ -87,7 +87,6 @@ def evaluate_unet(
     ):
     
     os.environ["CUDA_VISIBLE_DEVICES"] = ','.join(cuda_visible_devices)
-
     run_params = {
             'n_output_channels': n_output_channels,
             'kernel_size': kernel_size,
