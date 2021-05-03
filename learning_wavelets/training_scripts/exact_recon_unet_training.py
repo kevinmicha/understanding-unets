@@ -50,7 +50,7 @@ def train_unet(noise_std_train, noise_std_val, n_samples, source, base_n_filters
 
     chkpt_cback = ModelCheckpoint(chkpt_path, period=n_epochs, save_weights_only=False)
     log_dir = op.join(f'{LOGS_DIR}logs', run_id)
-    tboard_cback = TensorBoard(
+    chkpt_cback = ModelCheckpoint(chkpt_path, period=n_epochs, save_weights_only=True)
         log_dir=log_dir,
         histogram_freq=0,
         write_graph=False,
