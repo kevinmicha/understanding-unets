@@ -115,8 +115,8 @@ def evaluate_unet(
     model.built = True
     inputs = [
                 tf.zeros((n_volumes, patch_size, patch_size, 1)),
-                tf.zeros((n_volumes, 1)),
-            ]
+                tf.zeros((1, 32, 32, 1)),
+                tf.zeros((1, 1)),
     model(inputs)
     model.load_weights(f'{CHECKPOINTS_DIR}checkpoints/{run_id}.hdf5')
     
