@@ -76,7 +76,7 @@ def train_unet(noise_std_train, noise_std_val, n_samples, source, base_n_filters
         verbose=1,
         callbacks=[tboard_cback, chkpt_cback, lrate_cback],
         shuffle=False,
-    )
+        callbacks=[tboard_cback, chkpt_cback,],
     
     plt.plot(history.history['loss'], label='Loss (training data)')
     plt.plot(history.history['val_loss'], label='Loss (validation data)')
