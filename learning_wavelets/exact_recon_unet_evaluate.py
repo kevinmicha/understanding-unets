@@ -123,4 +123,4 @@ def evaluate_unet(
     for x, y_true in tqdm(val_set.as_numpy_iterator(), total = n_volumes):
         y_pred = model.predict(x, batch_size = 4)
         eval_res.push(y_true[..., 0], y_pred[..., 0])
-    return METRIC_FUNCS, (list(eval_res.means().values()), list(eval_res.stddevs().values()))
+        y_pred = model.predict(x)
