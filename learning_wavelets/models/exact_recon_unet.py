@@ -129,7 +129,7 @@ class ExactReconUnet(Model):
         noisy_image = inputs[0]
         noise_std = inputs[1]
         outputs = noisy_image
-        outputs, crop_w, crop_h, w, h = pad_power_of_two(outputs)
+        outputs, crop_w, crop_h, w, h = pad_power_of_two(outputs, self.layers_n_channels)
         for conv in self.down_convs:
             outputs = conv(outputs)
             scales.append(outputs)
@@ -146,14 +146,15 @@ class ExactReconUnet(Model):
         return outputs
     
 
-def pad_power_of_two(x):
+def pad_power_of_two(x, layers):
     
+    diff = 2**len(layers)
     y = tf.convert_to_tensor(x).numpy()
     w = y.shape[1]
     h = y.shape[2]
     
-    pad_value_w = 2**ceil(log(w, 2)) - w
-    pad_value_h = 2**ceil(log(h, 2)) - h
+    pad_value_w = w % diff 
+    pad_value_h = h % diff 
     padding = tf.constant([(0,0), (int(floor(pad_value_w/2)), int(ceil(pad_value_w/2))), (int(floor(pad_value_h/2)), int(ceil(pad_value_h/2))), (0, 0)])
         
     return tf.pad(x, padding, 'CONSTANT'), pad_value_w, pad_value_h, w, h
