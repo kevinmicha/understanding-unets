@@ -101,8 +101,6 @@ def evaluate_unet(
     batch_size = 8
     patch_size = 256
     val_set = data_func(
-        mode='validation',
-        mode='testing',
         patch_size=patch_size,
         return_noise_level=True,
     )
