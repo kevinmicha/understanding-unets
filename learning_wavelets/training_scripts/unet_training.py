@@ -156,14 +156,14 @@ def train_old_unet(
         mode='training',
         batch_size=batch_size,
         noise_std=noise_std_train,
-        return_noise_level=True,
+        return_noise_level=False,
         n_samples=n_samples,
     )
     im_ds_val = data_func(
         mode='validation',
         batch_size=batch_size,
         noise_std=noise_std_val,
-        return_noise_level=True,
+        return_noise_level=False,
     )
 
     run_params = {
