@@ -32,9 +32,9 @@ def evaluate_old_unet(
     
     n_channels = 1
     model = unet(input_size=(None, None, n_channels), **run_params)
-        
+
     model.load_weights(f'{CHECKPOINTS_DIR}checkpoints/{run_id}-{n_epochs}.hdf5')
-    
+
     metrics_per_noise_level = {}
     
     for noise_level in noise_std_test:
@@ -42,6 +42,7 @@ def evaluate_old_unet(
             mode='testing',
             patch_size=None,
             noise_std=noise_level,
+            n_pooling=5,
             return_noise_level=False,
             n_samples=n_samples,
         )
