@@ -1,7 +1,5 @@
-import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
-import matplotlib.pyplot as plt
 
 from learning_wavelets.config import CHECKPOINTS_DIR
 from learning_wavelets.data.datasets import im_dataset_bsd68
