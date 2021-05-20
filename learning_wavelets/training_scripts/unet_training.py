@@ -145,7 +145,6 @@ def train_old_unet(
         n_layers=5, 
         batch_size=8, 
         n_epochs=500,
-        exact_recon=False,
     ):
 
     # data preparation
@@ -157,14 +156,14 @@ def train_old_unet(
         mode='training',
         batch_size=batch_size,
         noise_std=noise_std_train,
-        return_noise_level=True,
+        return_noise_level=False,
         n_samples=n_samples,
     )
     im_ds_val = data_func(
         mode='validation',
         batch_size=batch_size,
         noise_std=noise_std_val,
-        return_noise_level=True,
+        return_noise_level=False,
     )
 
     run_params = {
@@ -174,7 +173,6 @@ def train_old_unet(
         'layers_n_non_lins': layers_n_non_lins,
         'non_relu_contract': False,
         'bn': True,
-        'exact_recon': exact_recon,
     }
 
     run_id = f'unet_{base_n_filters}_{source}_{noise_std_train[0]}_{noise_std_train[1]}_{n_samples}_{int(time.time())}'
