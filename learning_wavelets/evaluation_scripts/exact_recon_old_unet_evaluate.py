@@ -37,7 +37,7 @@ def evaluate_old_unet(
     }
     
     n_channels = 1
-    model = exact_recon_old_unet(input_size=((None, None, n_channels), n_channels), **run_params)
+    model = exact_recon_old_unet(input_size=(None, None, n_channels), **run_params)
 
     model.load_weights(f'{CHECKPOINTS_DIR}checkpoints/{run_id}-{n_epochs}.hdf5')
 
